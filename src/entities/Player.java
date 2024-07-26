@@ -1,5 +1,7 @@
 package entities;
 
+import utilz.LoadSave;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -71,18 +73,18 @@ public class Player extends Entity {
 
         moving = false;
 
-        if (left && !right){
+        if (left && !right) {
             x -= playerSpeed;
             moving = true;
-        }else if (right && !left){
+        } else if (right && !left) {
             x += playerSpeed;
             moving = true;
         }
 
-        if (up &&!down){
+        if (up && !down) {
             y -= playerSpeed;
             moving = true;
-        } else if (down &&!up){
+        } else if (down && !up) {
             y += playerSpeed;
             moving = true;
         }
@@ -91,37 +93,27 @@ public class Player extends Entity {
 
     private void loadAnimations() {
 
-        InputStream is = getClass().getResourceAsStream("/player_03.png");
-        try {
-            BufferedImage img = ImageIO.read(is);
+        BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
 
-            animations = new BufferedImage[12][6];
-            for (int j = 0; j < animations.length; j++)
-                for (int i = 0; i < animations[j].length; i++) {
-                    animations[j][i] = img.getSubimage(i * 64, j * 40, 64, 40);
-                }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+        animations = new BufferedImage[12][6];
+        for (int j = 0; j < animations.length; j++)
+            for (int i = 0; i < animations[j].length; i++) {
+                animations[j][i] = img.getSubimage(i * 64, j * 40, 64, 40);
             }
-        }
     }
 
-    public void restDirBooleans(){
-        left =    false;
+    public void restDirBooleans() {
+        left = false;
         right = false;
-        up =     false;
-        down =  false;
+        up = false;
+        down = false;
     }
 
-    public boolean setAttacking(boolean attacking){
+    public boolean setAttacking(boolean attacking) {
         this.attacking = attacking;
         return attacking;
     }
+
     public boolean isDown() {
         return down;
     }
