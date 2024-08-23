@@ -43,4 +43,8 @@ public class LevelManager {
         // Load level from file
         // Apply level to game
     }
+
+    public Level getCurrentLevel() {
+        return levelOne;
+    }
 }
